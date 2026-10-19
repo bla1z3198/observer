@@ -1,4 +1,6 @@
-# Hysteria 2 Auth & Subscription Server
+# observer - hysteria2 auth & subscription server
+
+<img src="https://img.shields.io/badge/System-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux" /> <img src="https://img.shields.io/badge/Language-Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go" /> <img src="https://img.shields.io/badge/Hysteria-v2-FF4F00?style=for-the-badge&logo=fastapi&logoColor=white" alt="Hysteria 2"/>
 
 A lightweight, standalone HTTP service written in Go for managing client authentication and subscription distribution for **Hysteria 2** proxy servers.
 
@@ -12,25 +14,37 @@ A lightweight, standalone HTTP service written in Go for managing client authent
 - **File-Driven Configuration:** Separates runtime configuration, user token maps, and client connection links into clean JSON and text files.
 
 ---
+## How to start?
+```
+Download archive from releases
 
-## Architecture Overview
+sudo chmod +x observer
 
-```text
-               +---------------------------+
-               |     Connecting Client     |
-               +-------------+-------------+
-                             | 
-                             | 1. Connects via QUIC
-                             v
-               +-------------+-------------+
-               |      Hysteria 2 Node      |
-               +-------------+-------------+
-                             |
-                             | 2. POST /auth (HTTP)
-                             v
-               +-------------+-------------+
-               |    Go Auth/Sub Server     |
-               |                           |
-               | - /auth (Hysteria check)  |
-               | - /sub/ (Client links)    |
-               +-------------+-------------+
+Create config.json, users.json and links.txt 
+```
+## Files
+```
+config.json - is a observer config
+users.json - token and id of user (table)
+links.txt - your hysteria2 links (auth via token)
+```
+## Example of hy2 config
+```
+listen: :443
+
+tls:
+  cert: /etc/letsencrypt/live/YOUR_DOMAIN_HERE/fullchain.pem
+  key: /etc/letsencrypt/live/YOUR_DOMAIN_HERE/privkey.pem
+
+masquerade:
+  type: file
+  file:
+    dir: root/var/www/masq
+  listenHTTPS: :443
+  forceHTTPS: true                                              
+
+auth:
+  type: http
+  http:
+    url: http://ADDRESS OF OBSERVER (AUTH)/auth
+```
