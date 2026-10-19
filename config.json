@@ -1,0 +1,13 @@
+{
+  "ports": {
+    "sub": "127.0.0.1:8081",
+    "auth": "127.0.0.1:8080"
+  },
+  "tls": {
+    "cert": "/etc/hysteria/server.crt",
+    "key": "/etc/hysteria/server.key"
+  },
+  "name": "hysteria-node-01",
+  "secret": "abc",
+  "https": false
+}
