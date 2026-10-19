@@ -18,9 +18,9 @@ A lightweight, standalone HTTP service written in Go for managing client authent
 ```
 Download archive from releases
 
-sudo chmod +x observer
+Create config.json, users.json and links.txt
 
-Create config.json, users.json and links.txt 
+Use the setup.sh (but check hy2 cfg carefully after) 
 ```
 ## Files
 ```
